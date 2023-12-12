@@ -1,0 +1,69 @@
+﻿@page "/addclass"
+@using Linq_Assignment_2.Models
+@using Linq_Assignment_2.Data
+
+@inject AppDbContext context;
+
+<h3>Add Class</h3>
+
+<EditForm Model="@classs" OnValidSubmit="@addClass">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+
+    <div class="form-group">
+        <label for="name">Class Name:</label>
+        <InputText id="name" @bind-Value="classs.Name" class="form-control" />
+        <ValidationMessage For="@(() => classs.Name)" />
+    </div>
+    <br />
+
+    <div class="form-group">
+        <label for="RoomNumber">Room Number:</label>
+        <InputText id="RoomNumber" @bind-Value="classs.RoomNumber" class="form-control" />
+        <ValidationMessage For="@(() => classs.RoomNumber)" />
+    </div>
+    <br />
+
+    @* <div class="form-group">
+        <label for="birthdate">Teacher ID:</label>
+        <InputText id="roomnumber" @bind-Value="classs.Fid" class="form-control" />
+        <ValidationMessage For="@(() => classs.Fid)" />
+    </div>
+    <br /> *@
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</EditForm>
+
+@code {
+    private Class classs = new Class();
+
+    private void addClass()
+    {
+        context.Classes.Add(classs);
+        context.SaveChanges();
+        classs = new Class();
+    }
+
+    //     List<Class> classes = new List<Class>
+    // {
+
+    //     new Class { Cid = 1, Name = "Introduction to Programming", RoomNumber = "101", Fid = 1 },
+    //     new Class { Cid = 2, Name = "Digital Circuits", RoomNumber = "201", Fid = 2 },
+    //     new Class { Cid = 3, Name = "Mechanics 101", RoomNumber = "301", Fid = 3 },
+    //     new Class { Cid = 4, Name = "Advanced Algorithms", RoomNumber = "102", Fid = 4 },
+    //     new Class { Cid = 5, Name = "Power Systems", RoomNumber = "202", Fid = 5 },
+    //     new Class { Cid = 6, Name = "Thermodynamics", RoomNumber = "302", Fid = 6 },
+    //     new Class { Cid = 7, Name = "Web Development", RoomNumber = "103", Fid = 7 },
+    //     new Class { Cid = 8, Name = "Machine Learning", RoomNumber = "203", Fid = 8 },
+    //     new Class { Cid = 9, Name = "Fluid Mechanics", RoomNumber = "303", Fid = 9 },
+    //     new Class { Cid = 10, Name = "Database Systems", RoomNumber = "104", Fid = 10 }
+    // };
+
+    // //To add List Of Classes
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     context.Classes.AddRange(classes);
+    //     context.SaveChanges();
+    // }
+}

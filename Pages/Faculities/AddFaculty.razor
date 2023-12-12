@@ -1,0 +1,53 @@
+﻿@page "/addfaculty"
+@using Linq_Assignment_2.Models
+@using Linq_Assignment_2.Data
+
+@inject AppDbContext context;
+
+<h3>Add Faculty</h3>
+
+<EditForm Model="@faculty" OnValidSubmit="@addFaculty">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="FName">Name:</label>
+        <InputText id="FName" @bind-Value="faculty.FName" class="form-control" />
+        <ValidationMessage For="@(() => faculty.FName)" />
+    </div>
+    <br />
+
+    <div class="form-group">
+        <label for="DeptId">Department ID:</label>
+        <InputText id="DeptId" @bind-Value="faculty.DeptId" class="form-control" />
+        <ValidationMessage For="@(() => faculty.DeptId)" />
+    </div>
+    <br />
+
+    <div class="form-group">
+        <label for="Standing">Standing:</label>
+        <InputText id="Standing" @bind-Value="faculty.Standing" class="form-control" />
+        <ValidationMessage For="@(() => faculty.Standing)" />
+    </div>
+    <br />
+
+    <div class="form-group">
+        <label for="Birthdate">Birthdate:</label>
+        <InputDate id="Birthdate" @bind-Value="faculty.Birthdate" class="form-control" min="1980-01-01" max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+        <ValidationMessage For="@(() => faculty.Birthdate)" />
+    </div>
+    <br />
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</EditForm>
+@code {
+    private Faculty faculty = new Faculty();
+
+    private void addFaculty()
+    {
+        context.Faculties.Add(faculty);
+        context.SaveChanges();
+        faculty = new Faculty();
+    }
+}
+

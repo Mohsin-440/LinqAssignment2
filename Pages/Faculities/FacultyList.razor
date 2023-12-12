@@ -1,0 +1,38 @@
+﻿@page "/facultieslist"
+@using Linq_Assignment_2.Models
+@using Linq_Assignment_2.Data
+
+@inject AppDbContext context;
+<h3>Faculty List</h3>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Faculty ID</th>
+            <th>Name</th>
+            <th>Department Name</th>
+            <th>Standing</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var faculty in faculties)
+        {
+            <tr>
+                <td>@faculty.Fid</td>
+                <td>@faculty.FName</td>
+                <td>@faculty.DeptId</td>
+                <td>@faculty.Standing</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@code {
+    private List<Faculty> faculties;
+
+    protected override void OnInitialized()
+    {
+        faculties = context.Faculties.ToList();
+    }
+}

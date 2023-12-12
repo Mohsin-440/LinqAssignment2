@@ -1,0 +1,38 @@
+﻿@page "/studentslist"
+@using Linq_Assignment_2.Models
+@using Linq_Assignment_2.Data
+
+@inject AppDbContext context;
+<h3>Students List</h3>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Student ID</th>
+            <th>Name</th>
+            <th>Major</th>
+            <th>Standing</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in students)
+        {
+            <tr>
+                <td>@student.Sid</td>
+                <td>@student.SName</td>
+                <td>@student.Major</td>
+                <td>@student.Standing</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@code {
+    private List<Student> students;
+
+    protected override void OnInitialized()
+    {
+        students = context.Students.ToList();
+    }
+}
